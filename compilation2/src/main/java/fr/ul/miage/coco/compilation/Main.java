@@ -14,7 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(6);
+		Exemple e = new Exemple(5);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
@@ -196,20 +196,26 @@ public class Main {
 		String res = "";
 		/*Bloc SI*/
 		res += generer_expression_boolean(a.getCondition(), t) + newLigne;
-		if (a.getCat() == Categories.DIF) {
+		/*if (a.getCat() == Categories.DIF) {
 			res += "POP(R0)" + newLigne +
 				   "BT(R0, sinon" + a.getValeur() + ")";
 		}
-		else {
+		else {*/
 			res += "POP(R0)" + newLigne +
 				   "BF(R0, sinon" + a.getValeur() + ")";
-		}
+		/*}*/
 		/*Bloc ALORS*/
-		res += generer_bloc(a.getBlocAlors(), t) + newLigne;
+		for(Noeud f : a.getBlocAlors().getFils()) {
+			res += generer_bloc(f, t) + newLigne;
+		}
+		//res += generer_bloc(a.getBlocAlors(), t) + newLigne;
 		res += "JMP(fsi" + a.getValeur() + ")" + newLigne +
 			   "sinon" + a.getValeur() + " : ";
 		/*Bloc SINON*/
-		res += generer_bloc(a.getBlocSinon(), t) + newLigne;
+		for(Noeud f : a.getBlocSinon().getFils()) {
+			res += generer_bloc(f, t) + newLigne;
+		}
+		//res += generer_bloc(a.getBlocSinon(), t) + newLigne;
 		res += "fsi" + a.getValeur() + " : ";
 		return res;
 	}
@@ -219,16 +225,18 @@ public class Main {
 		res += "TQ" + a.getValeur() + " : ";
 		/*Bloc TQ*/
 		res += generer_expression_boolean(a.getCondition(), t);
-		if (a.getCat() == Categories.DIF) {
+		/*if (a.getCat() == Categories.DIF) {
 			res += "POP(R0)" + newLigne +
 				   "BT(R0, TQF" + a.getValeur() + ")";
 		}
-		else {
+		else {*/
 			res += "POP(R0)" + newLigne +
 				   "BF(R0, TQF" + a.getValeur() + ")";
-		}
+		/*}*/
 		/*FAIRE*/
-		res += generer_bloc(a.getBlocFaire(), t);
+		for(Noeud f : a.getBlocFaire().getFils()) {
+			res += generer_bloc(f, t) + newLigne;
+		}
 		res += "JMP(TQ" + a.getValeur() + ")" + newLigne +
 			   "TQF" + a.getValeur() + " : ";
 		return res;

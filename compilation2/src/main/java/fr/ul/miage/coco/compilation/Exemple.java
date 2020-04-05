@@ -233,7 +233,7 @@ public class Exemple {
 				
 				Affectation n5_2 = new Affectation();
 				
-				Idf n5_3 = new Idf("k");
+				Idf n5_3 = new Idf("i");
 				
 				n5_2.ajouterUnFils(n5_3);
 				
@@ -360,7 +360,7 @@ public class Exemple {
 				
 				n6_12.setFilsDroit(n6_14);
 				
-				n6_9.ajouterUnFils(n6_12);
+				n6_5.getBlocFaire().ajouterUnFils(n6_12);
 				
 				n6_5.setBlocFaire(n6_9);
 				

@@ -33,9 +33,9 @@ public class Si extends NoeudInt {
 		setValeur(valeur);
 		setCat(Categories.SI);
 		setFils(new ArrayList<Noeud>(3));
-		this.getFils().set(0, null);
-		this.getFils().set(1, new Bloc());// vide par défaut
-		this.getFils().set(2, new Bloc());// vide par défaut
+		/*this.getFils().add(null);
+		this.getFils().add(new Bloc());// vide par défaut
+		this.getFils().add(new Bloc());// vide par défaut*/
 	}
 	//methodes
 	/**
@@ -54,7 +54,7 @@ public class Si extends NoeudInt {
 	 * @return le bloc si faux
 	 */
 	public Bloc getBlocSinon() {
-		return (Bloc) getFils().get(1);
+		return (Bloc) getFils().get(2);
 	}
 	/**
 	 * Ajoute une condition
