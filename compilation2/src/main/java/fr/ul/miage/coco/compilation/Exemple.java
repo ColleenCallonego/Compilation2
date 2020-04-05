@@ -3,12 +3,22 @@ package fr.ul.miage.coco.compilation;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import fr.ul.miage.arbre.Affectation;
+import fr.ul.miage.arbre.Bloc;
+import fr.ul.miage.arbre.Const;
+import fr.ul.miage.arbre.Ecrire;
+import fr.ul.miage.arbre.Egal;
+import fr.ul.miage.arbre.Fonction;
+import fr.ul.miage.arbre.Idf;
+import fr.ul.miage.arbre.Lire;
+import fr.ul.miage.arbre.Multiplication;
 import fr.ul.miage.arbre.Noeud;
 import fr.ul.miage.arbre.NoeudObj;
+import fr.ul.miage.arbre.Plus;
 import fr.ul.miage.arbre.Prog;
-import fr.ul.miage.arbre.Noeud.Categories;
-import fr.ul.miage.arbre.Noeud0;
-import fr.ul.miage.arbre.NoeudInt;
+import fr.ul.miage.arbre.Si;
+import fr.ul.miage.arbre.Superieur;
+import fr.ul.miage.arbre.TantQue;
 import fr.ul.miage.tds.Symbole;
 import fr.ul.miage.tds.Tds;
 
@@ -16,7 +26,7 @@ import fr.ul.miage.tds.Tds;
 
 public class Exemple {
 	private static final Logger LOG = Logger.getLogger(Tds.class.getName());
-	public Noeud a;
+	public Prog a;
 	public Tds t;
 	
 	public Exemple (int numero) {
@@ -25,9 +35,7 @@ public class Exemple {
 				//Création de l'arbre
 				a = new Prog();
 				
-				NoeudObj n1 = new NoeudObj();
-				n1.setCat(Categories.FONCTION);
-				n1.setValeur("main");
+				Fonction n1 = new Fonction("main");
 				
 				a.ajouterUnFils(n1);
 				//Création du tds
@@ -44,9 +52,7 @@ public class Exemple {
 				//Création de l'arbre
 				a = new Prog();
 				
-				NoeudObj n2 = new NoeudObj();
-				n2.setCat(Categories.FONCTION);
-				n2.setValeur("main");
+				Fonction n2 = new Fonction("main");
 				
 				a.ajouterUnFils(n2);
 				
@@ -86,68 +92,39 @@ public class Exemple {
 				//Création de l'arbre
 				a = new Prog();
 				
-				NoeudObj n3_1 = new NoeudObj();
-				n3_1.setCat(Categories.FONCTION);
-				n3_1.setValeur("main");
-				n3_1.setFils(new ArrayList<>());
+				Fonction n3_1 = new Fonction("main");
 				
-				Noeud0 n3_2 = new Noeud0();
-				n3_2.setCat(Categories.AFF);
-				n3_2.setFils(new ArrayList<>());
+				Affectation n3_2 = new Affectation();
 				
-				NoeudObj n3_3 = new NoeudObj();
-				n3_3.setCat(Categories.IDF);
-				n3_3.setValeur("k");
-				n3_3.setFils(new ArrayList<>());
+				Idf n3_3 = new Idf("k");
 				
 				n3_2.ajouterUnFils(n3_3);
 				
-				NoeudInt n3_4 = new NoeudInt();
-				n3_4.setCat(Categories.CONST);
-				n3_4.setValeur(2);
-				n3_4.setFils(new ArrayList<>());
+				Const n3_4 = new Const(2);
 				
 				n3_2.ajouterUnFils(n3_4);
 				
 				n3_1.ajouterUnFils(n3_2);
 				
-				Noeud0 n3_5 = new Noeud0();
-				n3_5.setCat(Categories.AFF);
-				n3_5.setFils(new ArrayList<>());
+				Affectation n3_5 = new Affectation();
 				
-				NoeudObj n3_6 = new NoeudObj();
-				n3_6.setCat(Categories.IDF);
-				n3_6.setValeur("l");
-				n3_6.setFils(new ArrayList<>());
+				Idf n3_6 = new Idf("l");
 				
 				n3_5.ajouterUnFils(n3_6);
 				
-				Noeud0 n3_7 = new Noeud0();
-				n3_7.setCat(Categories.PLUS);
-				n3_7.setFils(new ArrayList<>());
+				Plus n3_7 = new Plus();
 				
-				NoeudObj n3_8 = new NoeudObj();
-				n3_8.setCat(Categories.IDF);
-				n3_8.setValeur("i");
-				n3_8.setFils(new ArrayList<>());
+				Idf n3_8 = new Idf("i");
 				
 				n3_7.ajouterUnFils(n3_8);
 				
-				Noeud0 n3_9 = new Noeud0();
-				n3_9.setCat(Categories.MUL);
-				n3_9.setFils(new ArrayList<>());
+				Multiplication n3_9 = new Multiplication();
 				
-				NoeudObj n3_10 = new NoeudObj();
-				n3_10.setCat(Categories.CONST);
-				n3_10.setValeur(3);
-				n3_10.setFils(new ArrayList<>());
+				Const n3_10 = new Const(3);
 				
 				n3_9.ajouterUnFils(n3_10);
 				
-				NoeudObj n3_11 = new NoeudObj();
-				n3_11.setCat(Categories.IDF);
-				n3_11.setValeur("j");
-				n3_11.setFils(new ArrayList<>());
+				Idf n3_11 = new Idf("j");
 				
 				n3_9.ajouterUnFils(n3_11);
 				
@@ -195,49 +172,29 @@ public class Exemple {
 				//Création de l'arbre
 				a = new Prog();
 				
-				NoeudObj n4_1 = new NoeudObj();
-				n4_1.setCat(Categories.FONCTION);
-				n4_1.setValeur("main");
-				n4_1.setFils(new ArrayList<>());
+				Fonction n4_1 = new Fonction("main");
 				
-				Noeud0 n4_2 = new Noeud0();
-				n4_2.setCat(Categories.AFF);
-				n4_2.setFils(new ArrayList<>());
+				Affectation n4_2 = new Affectation();
 				
-				NoeudObj n4_3 = new NoeudObj();
-				n4_3.setCat(Categories.IDF);
-				n4_3.setValeur("i");
-				n4_3.setFils(new ArrayList<>());
+				Idf n4_3 = new Idf("i");
 				
 				n4_2.ajouterUnFils(n4_3);
 				
-				Noeud0 n4_4 = new Noeud0();
-				n4_4.setCat(Categories.LIRE);
-				n4_4.setFils(new ArrayList<>());
+				Lire n4_4 = new Lire();
 				
 				n4_2.ajouterUnFils(n4_4);
 				
 				n4_1.ajouterUnFils(n4_2);
 				
-				Noeud0 n4_5 = new Noeud0();
-				n4_5.setCat(Categories.ECR);
-				n4_5.setFils(new ArrayList<>());
+				Ecrire n4_5 = new Ecrire();
 				
-				Noeud0 n4_6 = new Noeud0();
-				n4_6.setCat(Categories.PLUS);
-				n4_6.setFils(new ArrayList<>());
+				Plus n4_6 = new Plus();
 				
-				NoeudObj n4_7 = new NoeudObj();
-				n4_7.setCat(Categories.IDF);
-				n4_7.setValeur("i");
-				n4_7.setFils(new ArrayList<>());
+				Idf n4_7 = new Idf("i");
 				
 				n4_6.ajouterUnFils(n4_7);
 				
-				NoeudObj n4_8 = new NoeudObj();
-				n4_8.setCat(Categories.IDF);
-				n4_8.setValeur("j");
-				n4_8.setFils(new ArrayList<>());
+				Idf n4_8 = new Idf("j");
 				
 				n4_6.ajouterUnFils(n4_8);
 				
@@ -272,67 +229,39 @@ public class Exemple {
 				//Création de l'arbre
 				a = new Prog();
 				
-				NoeudObj n5_1 = new NoeudObj();
-				n5_1.setCat(Categories.FONCTION);
-				n5_1.setValeur("main");
-				n5_1.setFils(new ArrayList<>());
+				Fonction n5_1 = new Fonction("main");
 				
-				Noeud0 n5_2 = new Noeud0(); 
-				n5_2.setCat(Categories.AFF);
-				n5_2.setFils(new ArrayList<>());
+				Affectation n5_2 = new Affectation();
 				
-				NoeudObj n5_3 = new NoeudObj();
-				n5_3.setCat(Categories.IDF);
-				n5_3.setValeur("k");
-				n5_3.setFils(new ArrayList<>());
+				Idf n5_3 = new Idf("k");
 				
 				n5_2.ajouterUnFils(n5_3);
 				
-				Noeud0 n5_4 = new Noeud0();
-				n5_4.setCat(Categories.LIRE);
-				n5_4.setFils(new ArrayList<>());
+				Lire n5_4 = new Lire();
 				
 				n5_2.ajouterUnFils(n5_4);
 				
 				n5_1.ajouterUnFils(n5_2);
 				
-				NoeudInt n5_5 = new NoeudInt();
-				n5_5.setCat(Categories.SI);
-				n5_5.setValeur("#1");
-				n5_5.setFils(new ArrayList<>());
+				Si n5_5 = new Si(1);
 				
-				Noeud0 n5_6 = new Noeud0();
-				n5_6.setCat(Categories.SUP);
-				n5_6.setFils(new ArrayList<>());
+				Superieur n5_6 = new Superieur();
 				
-				NoeudObj n5_7 = new NoeudObj();
-				n5_7.setCat(Categories.IDF);
-				n5_7.setValeur("i");
-				n5_7.setFils(new ArrayList<>());
+				Idf n5_7 = new Idf("i");
 
 				n5_6.ajouterUnFils(n5_7);
 				
-				NoeudInt n5_8 = new NoeudInt();
-				n5_8.setCat(Categories.CONST);
-				n5_8.setValeur(10);
-				n5_8.setFils(new ArrayList<>());
+				Const n5_8 = new Const(10);
 				
 				n5_6.ajouterUnFils(n5_8);
 				
 				n5_5.ajouterUnFils(n5_6);
 				
-				Noeud0 n5_9 = new Noeud0();
-				n5_9.setCat(Categories.BLOC);
-				n5_9.setFils(new ArrayList<>());
+				Bloc n5_9 = new Bloc();
 				
-				Noeud0 n5_10 = new Noeud0();
-				n5_10.setCat(Categories.ECR);
-				n5_10.setFils(new ArrayList<>());
+				Ecrire n5_10 = new Ecrire();
 				
-				NoeudInt n5_11 = new NoeudInt();
-				n5_11.setCat(Categories.CONST);
-				n5_11.setValeur(1);
-				n5_11.setFils(new ArrayList<>());
+				Const n5_11 = new Const(1);
 				
 				n5_10.ajouterUnFils(n5_11);
 				
@@ -340,18 +269,11 @@ public class Exemple {
 				
 				n5_5.ajouterUnFils(n5_9);
 				
-				Noeud0 n5_12 = new Noeud0();
-				n5_12.setCat(Categories.BLOC);
-				n5_12.setFils(new ArrayList<>());
+				Bloc n5_12 = new Bloc();
 				
-				Noeud0 n5_13 = new Noeud0();
-				n5_13.setCat(Categories.ECR);
-				n5_13.setFils(new ArrayList<>());
+				Ecrire n5_13 = new Ecrire();
 				
-				NoeudInt n5_14 = new NoeudInt();
-				n5_14.setCat(Categories.CONST);
-				n5_14.setValeur(2);
-				n5_14.setFils(new ArrayList<>());
+				Const n5_14 = new Const(2);
 				
 				n5_13.ajouterUnFils(n5_14);
 				
@@ -379,7 +301,92 @@ public class Exemple {
 				}
 				break;
 			case 6 : //Exemple 6
+				//Création de l'arbre
+				a = new Prog();
 				
+				Fonction n6_1 = new Fonction("main");
+				
+				Affectation n6_2 = new Affectation();
+				
+				Idf n6_3 = new Idf("i");
+				
+				n6_2.setFilsGauche(n6_3);
+				
+				Const n6_4 = new Const(0);
+				
+				n6_2.setFilsDroit(n6_4);
+				
+				n6_1.ajouterUnFils(n6_2);
+				
+				TantQue n6_5 = new TantQue(1);
+				
+				Superieur n6_6 = new Superieur();
+				
+				Idf n6_7 = new Idf("i");
+				
+				n6_6.setFilsGauche(n6_7);
+				
+				Idf n6_8 = new Idf("n");
+				
+				n6_6.setFilsDroit(n6_8);
+				
+				n6_5.setCondition(n6_6);
+				
+				Bloc n6_9 = new Bloc();
+				
+				Ecrire n6_10 = new Ecrire();
+				
+				Idf n6_11 = new Idf("i");
+				
+				n6_10.setLeFils(n6_11);
+				
+				n6_9.ajouterUnFils(n6_10);
+				
+				Affectation n6_12 = new Affectation();
+				
+				Idf n6_13 = new Idf("i");
+				
+				n6_12.setFilsGauche(n6_13);
+				
+				Plus n6_14 = new Plus();
+				
+				Idf n6_15 = new Idf("i");
+				
+				n6_14.setFilsGauche(n6_15);
+				
+				Const n6_16 = new Const(1);
+				
+				n6_14.setFilsGauche(n6_16);
+				
+				n6_12.setFilsDroit(n6_14);
+				
+				n6_9.ajouterUnFils(n6_12);
+				
+				n6_5.setBlocFaire(n6_9);
+				
+				n6_1.ajouterUnFils(n6_5);
+				
+				a.ajouterUnFils(n6_1);
+				//Création du tds
+				t = new Tds();
+				try {
+					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
+					s.set_nbparam(0);
+					s.set_nbloc(0);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("n", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					s.set_valeur(5);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
 				break;
 			case 7 : //Exemple 7
 				

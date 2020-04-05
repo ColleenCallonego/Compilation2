@@ -29,9 +29,9 @@ package fr.ul.miage.arbre;
  */
 public class NoeudInt extends Noeud {
 	//attribut
-	private Object valeur;
+	private int valeur;
 	//constructeur
-	public NoeudInt() {
+	protected NoeudInt() {
 		setValeur(0);
 	}
 	/* (non-Javadoc)
@@ -49,7 +49,7 @@ public class NoeudInt extends Noeud {
 	public Object getValeur() {
 		return valeur;
 	}
-	public void setValeur(Object valeur) {
+	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
 
