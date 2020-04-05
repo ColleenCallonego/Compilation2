@@ -32,7 +32,7 @@ public class NoeudObj extends Noeud {
 	//attribut
 	private Object valeur;
 	//constructeur
-	public NoeudObj() {
+	public NoeudObj() { //en protected avant
 		setValeur(null);
 	}
 
@@ -54,5 +54,4 @@ public class NoeudObj extends Noeud {
 	public void setValeur(Object valeur) {
 		this.valeur = valeur;
 	}
-
 }

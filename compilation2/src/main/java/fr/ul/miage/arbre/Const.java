@@ -33,4 +33,5 @@ public class Const extends NoeudInt {
 		setCat(Categories.CONST);
 		setFils(null);
 	}
+	
 }
