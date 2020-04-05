@@ -14,7 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(3);
+		Exemple e = new Exemple(6);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
@@ -158,6 +158,9 @@ public class Main {
 				break;
 			case ECR :
 				res += generer_ecrire(a,t);
+				break;
+			case LIRE :
+				res += generer_lire(a,t);
 				break;
 			case SI :
 				res += generer_si((Si)a,t);
