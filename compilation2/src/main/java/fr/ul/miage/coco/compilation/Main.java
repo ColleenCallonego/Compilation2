@@ -159,6 +159,12 @@ public class Main {
 			case ECR :
 				res += generer_ecrire(a,t);
 				break;
+			case SI :
+				res += generer_si((Si)a,t);
+				break;
+			case TQ :
+				res += generer_tq((TantQue)a,t);
+				break;
 		default:
 			System.out.println("Erreur l'arbre ne correspond pas à une instruction");
 			break;
