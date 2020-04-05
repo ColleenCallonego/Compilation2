@@ -14,7 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(5);
+		Exemple e = new Exemple(6);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
@@ -196,20 +196,20 @@ public class Main {
 		String res = "";
 		/*Bloc SI*/
 		res += generer_expression_boolean(a.getCondition(), t) + newLigne;
-		/*if (a.getCat() == Categories.DIF) {
+		if (a.getCondition().getCat() == Categories.DIF) {
 			res += "POP(R0)" + newLigne +
-				   "BT(R0, sinon" + a.getValeur() + ")";
+				   "BT(R0, sinon" + a.getValeur() + ")" + newLigne;
 		}
-		else {*/
+		else {
 			res += "POP(R0)" + newLigne +
-				   "BF(R0, sinon" + a.getValeur() + ")";
-		/*}*/
+				   "BF(R0, sinon" + a.getValeur() + ")" + newLigne;
+		}
 		/*Bloc ALORS*/
 		for(Noeud f : a.getBlocAlors().getFils()) {
 			res += generer_bloc(f, t) + newLigne;
 		}
 		//res += generer_bloc(a.getBlocAlors(), t) + newLigne;
-		res += "JMP(fsi" + a.getValeur() + ")" + newLigne +
+		res += "BR(fsi" + a.getValeur() + ")" + newLigne +
 			   "sinon" + a.getValeur() + " : ";
 		/*Bloc SINON*/
 		for(Noeud f : a.getBlocSinon().getFils()) {
@@ -224,20 +224,20 @@ public class Main {
 		String res = "";
 		res += "TQ" + a.getValeur() + " : ";
 		/*Bloc TQ*/
-		res += generer_expression_boolean(a.getCondition(), t);
-		/*if (a.getCat() == Categories.DIF) {
+		res += generer_expression_boolean(a.getCondition(), t) + newLigne;
+		if (a.getCondition().getCat() == Categories.DIF) {
 			res += "POP(R0)" + newLigne +
-				   "BT(R0, TQF" + a.getValeur() + ")";
+				   "BT(R0, TQF" + a.getValeur() + ")" + newLigne;
 		}
-		else {*/
+		else {
 			res += "POP(R0)" + newLigne +
-				   "BF(R0, TQF" + a.getValeur() + ")";
-		/*}*/
+				   "BF(R0, TQF" + a.getValeur() + ")" + newLigne;
+		}
 		/*FAIRE*/
 		for(Noeud f : a.getBlocFaire().getFils()) {
 			res += generer_bloc(f, t) + newLigne;
 		}
-		res += "JMP(TQ" + a.getValeur() + ")" + newLigne +
+		res += "BR(TQ" + a.getValeur() + ")" + newLigne +
 			   "TQF" + a.getValeur() + " : ";
 		return res;
 	}
@@ -253,8 +253,8 @@ public class Main {
 		switch(a.getCat()) {
 				/* > */
 			case SUP :
-				res += generer_expression(a.getFils().get(0),t);
-				res += generer_expression(a.getFils().get(1),t);
+				res += generer_expression(a.getFils().get(0),t) + newLigne;
+				res += generer_expression(a.getFils().get(1),t) + newLigne;
 				res += "POP(R2)" + newLigne + 
 	   				   "POP(R1)" + newLigne + 
 					   "CMPLT(R2, R1, R3)" + newLigne + 
@@ -262,8 +262,8 @@ public class Main {
 				break;
 				/* >= */	
 			case SUPE :
-				res += generer_expression(a.getFils().get(0),t);
-				res += generer_expression(a.getFils().get(1),t);
+				res += generer_expression(a.getFils().get(0),t) + newLigne;
+				res += generer_expression(a.getFils().get(1),t) + newLigne;
 				res += "POP(R2)" + newLigne + 
 					   "POP(R1)" + newLigne + 
 					   "CMPLE(R2, R1, R3)" + newLigne + 
@@ -271,8 +271,8 @@ public class Main {
 				break;
 				/* < */
 			case INF :
-				res += generer_expression(a.getFils().get(0),t);
-				res += generer_expression(a.getFils().get(1),t);
+				res += generer_expression(a.getFils().get(0),t) + newLigne;
+				res += generer_expression(a.getFils().get(1),t) + newLigne;
 				res += "POP(R2)" + newLigne + 
 					   "POP(R1)" + newLigne + 
 					   "CMPLT(R1, R2, R3)" + newLigne + 
@@ -280,8 +280,8 @@ public class Main {
 				break;
 				/* <= */
 			case INFE :
-				res += generer_expression(a.getFils().get(0),t);
-				res += generer_expression(a.getFils().get(1),t);
+				res += generer_expression(a.getFils().get(0),t) + newLigne;
+				res += generer_expression(a.getFils().get(1),t) + newLigne;
 				res += "POP(R2)" + newLigne + 
 					   "POP(R1)" + newLigne + 
 					   "CMPLE(R1, R2, R3)" + newLigne + 
@@ -289,8 +289,8 @@ public class Main {
 				break;
 				/* == */
 			case EG :
-				res += generer_expression(a.getFils().get(0),t);
-				res += generer_expression(a.getFils().get(1),t);
+				res += generer_expression(a.getFils().get(0),t) + newLigne;
+				res += generer_expression(a.getFils().get(1),t) + newLigne;
 				res += "POP(R2)" + newLigne + 
 					   "POP(R1)" + newLigne + 
 					   "CMPEQ(R1, R2, R3)" + newLigne + 
@@ -298,8 +298,8 @@ public class Main {
 				break;
 				/* != */
 			case DIF :
-				res += generer_expression(a.getFils().get(0),t);
-				res += generer_expression(a.getFils().get(1),t);
+				res += generer_expression(a.getFils().get(0),t) + newLigne;
+				res += generer_expression(a.getFils().get(1),t) + newLigne;
 				res += "POP(R2)" + newLigne + 
 					   "POP(R1)" + newLigne + 
 					   "CMPEQ(R1, R2, R3)" + newLigne + 
