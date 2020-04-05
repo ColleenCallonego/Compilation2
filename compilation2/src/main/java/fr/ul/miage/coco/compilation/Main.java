@@ -14,7 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(5);
+		Exemple e = new Exemple(6);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
@@ -206,7 +206,7 @@ public class Main {
 			res += generer_bloc(f, t) + newLigne;
 		}
 		//res += generer_bloc(a.getBlocAlors(), t) + newLigne;
-		res += "JMP(fsi" + a.getValeur() + ")" + newLigne +
+		res += "BR(fsi" + a.getValeur() + ")" + newLigne +
 			   "sinon" + a.getValeur() + " : ";
 		/*Bloc SINON*/
 		for(Noeud f : a.getBlocSinon().getFils()) {
@@ -234,7 +234,7 @@ public class Main {
 		for(Noeud f : a.getBlocFaire().getFils()) {
 			res += generer_bloc(f, t) + newLigne;
 		}
-		res += "JMP(TQ" + a.getValeur() + ")" + newLigne +
+		res += "BR(TQ" + a.getValeur() + ")" + newLigne +
 			   "TQF" + a.getValeur() + " : ";
 		return res;
 	}

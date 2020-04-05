@@ -10,6 +10,7 @@ import fr.ul.miage.arbre.Ecrire;
 import fr.ul.miage.arbre.Egal;
 import fr.ul.miage.arbre.Fonction;
 import fr.ul.miage.arbre.Idf;
+import fr.ul.miage.arbre.Inferieur;
 import fr.ul.miage.arbre.Lire;
 import fr.ul.miage.arbre.Multiplication;
 import fr.ul.miage.arbre.Noeud;
@@ -320,7 +321,7 @@ public class Exemple {
 				
 				TantQue n6_5 = new TantQue(1);
 				
-				Superieur n6_6 = new Superieur();
+				Inferieur n6_6 = new Inferieur();
 				
 				Idf n6_7 = new Idf("i");
 				
@@ -360,7 +361,7 @@ public class Exemple {
 				
 				n6_12.setFilsDroit(n6_14);
 				
-				n6_5.getBlocFaire().ajouterUnFils(n6_12);
+				n6_9.ajouterUnFils(n6_12);
 				
 				n6_5.setBlocFaire(n6_9);
 				
