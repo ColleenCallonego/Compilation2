@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import fr.ul.miage.arbre.*;
+import fr.ul.miage.arbre.Noeud.Categories;
 import fr.ul.miage.tds.*;
 
 public class Main {
@@ -97,7 +98,7 @@ public class Main {
 			res += "POP(R2)" + newLigne +
 				   "POP(R1)" + newLigne +
 				   "ADD(R1, R2, R3)" + newLigne +
-				   "PUSH(R3)" + newLigne;
+				   "PUSH(R3)";
 			break;
 		/*La racine de l'arbre en paramètre est une opération : SOUSTRACTION*/
 		case MOINS:
@@ -106,7 +107,7 @@ public class Main {
 			res += "POP(R2)" + newLigne +
 				   "POP(R1)" + newLigne +
 				   "SUB(R1, R2, R3)" + newLigne +
-				   "PUSH(R3)" + newLigne;
+				   "PUSH(R3)";
 			break;
 		/*La racine de l'arbre en paramètre est une opération : MULTIPLICATION*/
 		case MUL:
@@ -115,7 +116,7 @@ public class Main {
 			res += "POP(R2)" + newLigne +
 				   "POP(R1)" + newLigne +
 				   "MUL(R1, R2, R3)" + newLigne +
-				   "PUSH(R3)" + newLigne;
+				   "PUSH(R3)";
 			break;
 		/*La racine de l'arbre en paramètre est une opération : DIVISION*/
 		case DIV:
@@ -124,7 +125,7 @@ public class Main {
 			res += "POP(R2)" + newLigne +
 				   "POP(R1)" + newLigne +
 				   "DIV(R1, R2, R3)" + newLigne +
-				   "PUSH(R3)" + newLigne;
+				   "PUSH(R3)";
 			break;
 		/*La racine de l'arbre en paramètre est une lecture*/
 		case LIRE :
@@ -182,19 +183,45 @@ public class Main {
 		return res;
 	}
 	
-	public static String generer_si(Noeud a, Tds t) {
+	public static String generer_si(Si a, Tds t) {
 		String res = "";
 		/*Bloc SI*/
-		res += generer_expression_boolean(a.getFils().get(0), t) + newLigne;
-		res += "POP(R0)" + newLigne +
-			   "BF(R0, sinon" + a.getValeur() + ")";
+		res += generer_expression_boolean(a.getCondition(), t) + newLigne;
+		if (a.getCat() == Categories.DIF) {
+			res += "POP(R0)" + newLigne +
+				   "BT(R0, sinon" + a.getValeur() + ")";
+		}
+		else {
+			res += "POP(R0)" + newLigne +
+				   "BF(R0, sinon" + a.getValeur() + ")";
+		}
 		/*Bloc ALORS*/
-		res += generer_bloc(a.getFils().get(1), t) + newLigne;
+		res += generer_bloc(a.getBlocAlors(), t) + newLigne;
 		res += "JMP(fsi" + a.getValeur() + ")" + newLigne +
 			   "sinon" + a.getValeur() + " : ";
 		/*Bloc SINON*/
-		res += generer_bloc(a.getFils().get(2), t) + newLigne;
+		res += generer_bloc(a.getBlocSinon(), t) + newLigne;
 		res += "fsi" + a.getValeur() + " : ";
+		return res;
+	}
+	
+	public static String generer_tq(TantQue a, Tds t) {
+		String res = "";
+		res += "TQ" + a.getValeur() + " : ";
+		/*Bloc TQ*/
+		res += generer_expression_boolean(a.getCondition(), t);
+		if (a.getCat() == Categories.DIF) {
+			res += "POP(R0)" + newLigne +
+				   "BT(R0, TQF" + a.getValeur() + ")";
+		}
+		else {
+			res += "POP(R0)" + newLigne +
+				   "BF(R0, TQF" + a.getValeur() + ")";
+		}
+		/*FAIRE*/
+		res += generer_bloc(a.getBlocFaire(), t);
+		res += "JMP(TQ" + a.getValeur() + ")" + newLigne +
+			   "TQF" + a.getValeur() + " : ";
 		return res;
 	}
 	
