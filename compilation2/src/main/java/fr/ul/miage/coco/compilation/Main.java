@@ -13,17 +13,24 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(4);
+		Exemple e = new Exemple(3);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
 	
 	public static String generer_programme(Noeud a, Tds t) {
 		String res = "";
-		res += ".include beta.uasm" + newLigne + ".include intio.uasm" + newLigne + ".options tty" + newLigne + "CMOVE(pile, SP)" + newLigne + "BR(debut)";
+		res += ".include beta.uasm" + newLigne + 
+			   ".include intio.uasm" + newLigne + 
+			   ".options tty" + newLigne + 
+			   "CMOVE(pile, SP)" + newLigne + 
+			   "BR(debut)";
 		res += generer_data(t);
 		res += generer_code(a, t);
-		res += newLigne + "debut : " + "CALL(main)" + newLigne + "HALT()" + newLigne + "pile :";
+		res += newLigne + "debut : " + 
+						  "CALL(main)" + newLigne + 
+						  "HALT()" + newLigne + 
+						  "pile :";
 		return res;
 	}
 	
@@ -55,13 +62,18 @@ public class Main {
 
 	public static String generer_fonction(Noeud n, Tds t){
 		String res ="";
-		res += n.getLabel() + " : PUSH(LP)" + newLigne + "PUSH(BP)" + newLigne + "MOVE(SP, BP)";
+		res += n.getLabel() + " : PUSH(LP)" + 
+				   newLigne + "PUSH(BP)" + 
+				   newLigne + "MOVE(SP, BP)";
 		if (n.getFils() != null) {
 			for(Noeud f : n.getFils()) {
 				res += newLigne + generer_bloc(f, t);
 			}
 		}
-		res += newLigne + "MOVE(BP, SP)" + newLigne + "POP(BP)" + newLigne + "POP(LP)" + newLigne + "RTN()";
+		res += newLigne + "MOVE(BP, SP)" + 
+			   newLigne + "POP(BP)" + 
+			   newLigne + "POP(LP)" + 
+			   newLigne + "RTN()";
 		return res;
 	}
 	public static String generer_expression(Noeud a, Tds t) {
@@ -130,7 +142,10 @@ public class Main {
 		String res;
 		res = "";
 		res += generer_expression(a.getFils().get(1), t);
-		res += newLigne + "POP(R0)" + newLigne + "ST(R0, " + a.getFils().get(0).getLabel() + ")";
+		res += newLigne + "POP(R0)" + 
+			   newLigne + "ST(R0, " + 
+			   a.getFils().get(0).getLabel() + 
+			   					")";
 		return res;
 	}
 
@@ -155,7 +170,7 @@ public class Main {
 		res = "";
 		res += generer_expression(a.getFils().get(0), t) + newLigne;
 		res += "POP(R0)" + newLigne + 
-			   "WRINT()" + newLigne;
+			   "WRINT()";
 		return res;
 	}
 	
@@ -168,7 +183,19 @@ public class Main {
 	}
 	
 	public static String generer_si(Noeud a, Tds t) {
-		return "a faire";
+		String res = "";
+		/*Bloc SI*/
+		res += generer_expression_boolean(a.getFils().get(0), t) + newLigne;
+		res += "POP(R0)" + newLigne +
+			   "BF(R0, sinon" + a.getValeur() + ")";
+		/*Bloc ALORS*/
+		res += generer_bloc(a.getFils().get(1), t) + newLigne;
+		res += "JMP(fsi" + a.getValeur() + ")" + newLigne +
+			   "sinon" + a.getValeur() + " : ";
+		/*Bloc SINON*/
+		res += generer_bloc(a.getFils().get(2), t) + newLigne;
+		res += "fsi" + a.getValeur() + " : ";
+		return res;
 	}
 	
 	public static String generer_bloc(Noeud a, Tds t) {
@@ -179,31 +206,66 @@ public class Main {
 	
 	public static String generer_expression_boolean(Noeud a, Tds t) {
 		String res = "";
-		if(a.getCat().equals("SUP")){
-			res += generer_expression(a.getFils().get(0),t);
-			res += generer_expression(a.getFils().get(1),t);
-			res += newLigne + "POP(R2)" + newLigne + "POP(R1)" + newLigne + "CMPLT(R2, R1, R3)" + newLigne + "PUSH(R3)";
-		}
-		if(a.getCat().equals("SUPE")){
-			res += generer_expression(a.getFils().get(0),t);
-			res += generer_expression(a.getFils().get(1),t);
-			res += newLigne + "POP(R2)" + newLigne + "POP(R1)" + newLigne + "CMPLE(R2, R1, R3)" + newLigne + "PUSH(R3)";
-		}
-		if(a.getCat().equals("INF")){
-			res += generer_expression(a.getFils().get(0),t);
-			res += generer_expression(a.getFils().get(1),t);
-			res += newLigne + "POP(R2)" + newLigne + "POP(R1)" + newLigne + "CMPLT(R1, R2, R3)" + newLigne + "PUSH(R3)";
-		}
-		if(a.getCat().equals("INFE")){
-			res += generer_expression(a.getFils().get(0),t);
-			res += generer_expression(a.getFils().get(1),t);
-			res += newLigne + "POP(R2)" + newLigne + "POP(R1)" + newLigne + "CMPLE(R1, R2, R3)" + newLigne + "PUSH(R3)";
-		}
-		if(a.getCat().equals("EG")){
-			res += generer_expression(a.getFils().get(0),t);
-			res += generer_expression(a.getFils().get(1),t);
-			res += newLigne + "POP(R2)" + newLigne + "POP(R1)" + newLigne + "CMPEQ(R1, R2, R3)" + newLigne + "PUSH(R3)";
-		}
+		switch(a.getCat()) {
+				/* > */
+			case SUP :
+				res += generer_expression(a.getFils().get(0),t);
+				res += generer_expression(a.getFils().get(1),t);
+				res += "POP(R2)" + newLigne + 
+	   				   "POP(R1)" + newLigne + 
+					   "CMPLT(R2, R1, R3)" + newLigne + 
+					   "PUSH(R3)";
+				break;
+				/* >= */	
+			case SUPE :
+				res += generer_expression(a.getFils().get(0),t);
+				res += generer_expression(a.getFils().get(1),t);
+				res += "POP(R2)" + newLigne + 
+					   "POP(R1)" + newLigne + 
+					   "CMPLE(R2, R1, R3)" + newLigne + 
+					   "PUSH(R3)";
+				break;
+				/* < */
+			case INF :
+				res += generer_expression(a.getFils().get(0),t);
+				res += generer_expression(a.getFils().get(1),t);
+				res += "POP(R2)" + newLigne + 
+					   "POP(R1)" + newLigne + 
+					   "CMPLT(R1, R2, R3)" + newLigne + 
+					   "PUSH(R3)";
+				break;
+				/* <= */
+			case INFE :
+				res += generer_expression(a.getFils().get(0),t);
+				res += generer_expression(a.getFils().get(1),t);
+				res += "POP(R2)" + newLigne + 
+					   "POP(R1)" + newLigne + 
+					   "CMPLE(R1, R2, R3)" + newLigne + 
+					   "PUSH(R3)";
+				break;
+				/* == */
+			case EG :
+				res += generer_expression(a.getFils().get(0),t);
+				res += generer_expression(a.getFils().get(1),t);
+				res += "POP(R2)" + newLigne + 
+					   "POP(R1)" + newLigne + 
+					   "CMPEQ(R1, R2, R3)" + newLigne + 
+					   "PUSH(R3)";
+				break;
+				/* != */
+			case DIF :
+				res += generer_expression(a.getFils().get(0),t);
+				res += generer_expression(a.getFils().get(1),t);
+				res += "POP(R2)" + newLigne + 
+					   "POP(R1)" + newLigne + 
+					   "CMPEQ(R1, R2, R3)" + newLigne + 
+					   "PUSH(R3)";
+				break;
+				/*La racine de l'arbre en paramètre ne correspond à aucun boolean utilisable dans cette méthode*/	
+			default:
+				System.out.println("Erreur l'arbre ne correspond pas à un boolean");
+				break;
+			}
 		return res;
 	}
 }
