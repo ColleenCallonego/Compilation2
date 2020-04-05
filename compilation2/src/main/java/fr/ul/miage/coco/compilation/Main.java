@@ -18,7 +18,7 @@ public class Main {
 		System.out.print(generer_programme(e.a, e.t));
 	}
 	
-	public static String generer_programme(Noeud a, Tds t) {
+	public static String generer_programme(Prog a, Tds t) {
 		String res = "";
 		res += ".include beta.uasm" + newLigne + 
 			   ".include intio.uasm" + newLigne + 
@@ -54,7 +54,7 @@ public class Main {
 	
 	public static String generer_code(Noeud a, Tds t) {
 		String res = "";
-		for(Noeud  f : a.getFils()){
+		for(Noeud  f : a.getFils() ){
 			res += newLigne + generer_fonction(f, t);
 		}
 		return res;

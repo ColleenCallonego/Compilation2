@@ -18,6 +18,7 @@ import fr.ul.miage.arbre.Plus;
 import fr.ul.miage.arbre.Prog;
 import fr.ul.miage.arbre.Si;
 import fr.ul.miage.arbre.Superieur;
+import fr.ul.miage.arbre.TantQue;
 import fr.ul.miage.tds.Symbole;
 import fr.ul.miage.tds.Tds;
 
@@ -25,7 +26,7 @@ import fr.ul.miage.tds.Tds;
 
 public class Exemple {
 	private static final Logger LOG = Logger.getLogger(Tds.class.getName());
-	public Noeud a;
+	public Prog a;
 	public Tds t;
 	
 	public Exemple (int numero) {
@@ -300,7 +301,92 @@ public class Exemple {
 				}
 				break;
 			case 6 : //Exemple 6
+				//Création de l'arbre
+				a = new Prog();
 				
+				Fonction n6_1 = new Fonction("main");
+				
+				Affectation n6_2 = new Affectation();
+				
+				Idf n6_3 = new Idf("i");
+				
+				n6_2.setFilsGauche(n6_3);
+				
+				Const n6_4 = new Const(0);
+				
+				n6_2.setFilsDroit(n6_4);
+				
+				n6_1.ajouterUnFils(n6_2);
+				
+				TantQue n6_5 = new TantQue(1);
+				
+				Superieur n6_6 = new Superieur();
+				
+				Idf n6_7 = new Idf("i");
+				
+				n6_6.setFilsGauche(n6_7);
+				
+				Idf n6_8 = new Idf("n");
+				
+				n6_6.setFilsDroit(n6_8);
+				
+				n6_5.setCondition(n6_6);
+				
+				Bloc n6_9 = new Bloc();
+				
+				Ecrire n6_10 = new Ecrire();
+				
+				Idf n6_11 = new Idf("i");
+				
+				n6_10.setLeFils(n6_11);
+				
+				n6_9.ajouterUnFils(n6_10);
+				
+				Affectation n6_12 = new Affectation();
+				
+				Idf n6_13 = new Idf("i");
+				
+				n6_12.setFilsGauche(n6_13);
+				
+				Plus n6_14 = new Plus();
+				
+				Idf n6_15 = new Idf("i");
+				
+				n6_14.setFilsGauche(n6_15);
+				
+				Const n6_16 = new Const(1);
+				
+				n6_14.setFilsGauche(n6_16);
+				
+				n6_12.setFilsDroit(n6_14);
+				
+				n6_9.ajouterUnFils(n6_12);
+				
+				n6_5.setBlocFaire(n6_9);
+				
+				n6_1.ajouterUnFils(n6_5);
+				
+				a.ajouterUnFils(n6_1);
+				//Création du tds
+				t = new Tds();
+				try {
+					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
+					s.set_nbparam(0);
+					s.set_nbloc(0);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("n", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					s.set_valeur(5);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
 				break;
 			case 7 : //Exemple 7
 				

@@ -57,7 +57,7 @@ public class TantQue extends NoeudInt {
 	/**
 	 * Ajoute un bloc
 	 */
-	public void setBlocAlors(Bloc n) {
+	public void setBlocFaire(Bloc n) {
 		getFils().add(1, n);
 	}
 }
