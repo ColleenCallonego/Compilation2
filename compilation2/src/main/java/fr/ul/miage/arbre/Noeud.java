@@ -42,6 +42,7 @@ public abstract class Noeud {
 	}
 	//attributs
 	private Categories cat;
+	private String scope;
 	private List<Noeud> fils;
 	
 	//abstract
@@ -93,6 +94,12 @@ public abstract class Noeud {
 	}
 	public void setCat(Categories cat) {
 		this.cat = cat;
+	}
+	public String getScope() {
+		return scope;
+	}
+	public void setScope(String scope) {
+		this.scope = scope; 
 	}
 	public List<Noeud> getFils() {
 		return fils;

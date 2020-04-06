@@ -27,9 +27,10 @@ package fr.ul.miage.arbre;
  */
 public class Idf extends NoeudObj {
 	//constructeur
-	public Idf(Object valeur) {
+	public Idf(Object valeur, String scope) {
 		setCat(Categories.IDF);
 		setValeur(valeur);
 		setFils(null); //feuille
+		setScope(scope);
 	}
 }
