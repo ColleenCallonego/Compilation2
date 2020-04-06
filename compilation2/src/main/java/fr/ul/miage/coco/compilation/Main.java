@@ -209,6 +209,10 @@ public class Main {
 		case LIRE :
 			res += generer_lire(a,t);
 			break;
+		/*La racine de l'arbre en paramètre est un appel*/
+		case  APPEL:
+			res += generer_appel((Appel)a,t);
+			break;
 		/*La racine de l'arbre en paramètre ne correspond à aucune catégorie utilisable dans cette méthode*/
 		default:
 			System.out.println("Erreur l'arbre ne correspond pas à une expression");
@@ -252,6 +256,12 @@ public class Main {
 				break;
 			case TQ :
 				res += generer_tq((TantQue)a,t);
+				break;
+			case  APPEL:
+				res += generer_appel((Appel)a,t);
+				break;
+			case  RET:
+				res += generer_retour((Retour)a,t);
 				break;
 		default:
 			System.out.println("Erreur l'arbre ne correspond pas à une instruction");
@@ -416,7 +426,7 @@ public class Main {
 		return res;
 	}
 	
-	public static String generer_retour(Noeud a, Tds t) {
+	public static String generer_retour(Retour a, Tds t) {
 		String res = "";
 		res += generer_expression(a.getFils().get(0), t) + newLigne;
 		res += "POP(R0)" + newLigne + 
