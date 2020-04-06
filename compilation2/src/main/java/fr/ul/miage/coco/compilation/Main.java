@@ -14,7 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(6);
+		Exemple e = new Exemple(7);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
