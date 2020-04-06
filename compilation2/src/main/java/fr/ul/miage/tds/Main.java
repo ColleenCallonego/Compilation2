@@ -34,48 +34,48 @@ public class Main {
 		Tds tds = new Tds();
 		// remplissage
 		try {
-			Symbole s = tds.ajouter("x", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL);
+			Symbole s = tds.ajouter("x", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 			s.set_valeur(2020);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			tds.ajouter("x", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL);
+			tds.ajouter("x", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			tds.ajouter("y", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL);
+			tds.ajouter("y", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			Symbole s = tds.ajouter("f", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL);
+			Symbole s = tds.ajouter("f", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 			s.set_nbparam(1);
 			s.set_nbloc(3);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			Symbole s = tds.ajouter("a", Symbole.CAT_PARAMETRE, "f");
+			Symbole s = tds.ajouter("a", Symbole.CAT_PARAMETRE, "f", Symbole.TYPE_ENTIER);
 			s.set_rang(0);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			Symbole s = tds.ajouter("b", Symbole.CAT_LOCAL, "f");
+			Symbole s = tds.ajouter("b", Symbole.CAT_LOCAL, "f", Symbole.TYPE_ENTIER);
 			s.set_rang(0);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			Symbole s = tds.ajouter("c", Symbole.CAT_LOCAL, "f");
+			Symbole s = tds.ajouter("c", Symbole.CAT_LOCAL, "f", Symbole.TYPE_ENTIER);
 			s.set_rang(1);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());
 		}
 		try {
-			Symbole s = tds.ajouter("x", Symbole.CAT_LOCAL, "f");
+			Symbole s = tds.ajouter("x", Symbole.CAT_LOCAL, "f", Symbole.TYPE_ENTIER);
 			s.set_rang(2);
 		} catch (Exception e) {
 			LOG.warning(e.getMessage());

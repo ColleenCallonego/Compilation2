@@ -58,11 +58,12 @@ public class Symbole {
 	public Symbole() {
 		prop = new Properties();
 	}
-	public Symbole(String nom, String cat, String scope) {
+	public Symbole(String nom, String cat, String scope, String type) {
 		prop = new Properties();
 		prop.put(PROP_NOM, nom);
 		prop.put(PROP_CATEGORIE, cat);
 		prop.put(PROP_SCOPE, scope);
+		prop.put(PROP_TYPE, type);
 	}
 
 	//methods
@@ -86,6 +87,14 @@ public class Symbole {
 	 */
 	public String getCat() {
 		return prop.getProperty(PROP_CATEGORIE);
+	}
+	/**
+	 * fournit le type du symbole 
+	 * méthode ajouter par le groupe Callonego, Couroux, Picard, Soquet
+	 * @return
+	 */
+	public String getType() {
+		return prop.getProperty(PROP_TYPE);
 	}
 	/**
 	 * fournit la valeur d'une variable globale

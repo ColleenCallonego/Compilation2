@@ -42,7 +42,7 @@ public class Exemple {
 				//Création du tds
 				t = new Tds();
 				try {
-					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
 					s.set_nbparam(0);
 					s.set_nbloc(0);
 				} catch (Exception e) {
@@ -60,31 +60,29 @@ public class Exemple {
 				//Création du tds
 				t = new Tds();
 				try {
-					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
-					s.set_nbparam(0);
-					s.set_nbloc(0);
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("i", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 					s.set_valeur(10);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("j", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("j", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 					s.set_valeur(20);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("k", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("k", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("l", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("l", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
@@ -140,31 +138,29 @@ public class Exemple {
 				//Création du tds
 				t = new Tds();
 				try {
-					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
-					s.set_nbparam(0);
-					s.set_nbloc(0);
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("i", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 					s.set_valeur(10);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("j", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("j", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 					s.set_valeur(20);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("k", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("k", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("l", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("l", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
@@ -208,19 +204,17 @@ public class Exemple {
 				//Création du tds
 				t = new Tds();
 				try {
-					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
-					s.set_nbparam(0);
-					s.set_nbloc(0);
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("i", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("j", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("j", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 					s.set_valeur(20);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
@@ -289,14 +283,12 @@ public class Exemple {
 				//Création du tds
 				t = new Tds();
 				try {
-					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
-					s.set_nbparam(0);
-					s.set_nbloc(0);
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("i", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
@@ -371,26 +363,50 @@ public class Exemple {
 				//Création du tds
 				t = new Tds();
 				try {
-					Symbole s = t.ajouter("main", Symbole.TYPE_VOID, Symbole.CAT_FONCTION);
-					s.set_nbparam(0);
-					s.set_nbloc(0);
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("i", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("i", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				try {
-					Symbole s = t.ajouter("n", Symbole.TYPE_ENTIER, Symbole.SCOPE_GLOBAL);
+					Symbole s = t.ajouter("n", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
 					s.set_valeur(5);
 				} catch (Exception e) {
 					LOG.warning(e.getMessage());
 				}
 				break;
 			case 7 : //Exemple 7
-				
+				//Création du tds
+				t = new Tds();
+				try {
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("a", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
+					s.set_valeur(10);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("f", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
+					s.set_nbparam(1);
+					s.set_nbloc(2);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("i", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
+					s.set_rang(0);
+					s.set_valeur(5);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
 				break;
 			case 8 : //Exemple 8
 				

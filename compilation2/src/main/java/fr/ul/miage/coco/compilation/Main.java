@@ -42,7 +42,7 @@ public class Main {
 			int init = 0;
 			List<Symbole> listSym = t.table.get(s);
 			for (Symbole sym : listSym) {
-				if (sym.getCat().equals("int") && sym.getScope().equals("global")){
+				if (sym.getType().equals("int") && sym.getScope().equals("global")){
 					if (sym.get_valeur() != 0) {
 						init = sym.get_valeur();
 					}
