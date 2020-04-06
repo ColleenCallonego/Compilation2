@@ -18,6 +18,7 @@ import fr.ul.miage.arbre.Noeud;
 import fr.ul.miage.arbre.NoeudObj;
 import fr.ul.miage.arbre.Plus;
 import fr.ul.miage.arbre.Prog;
+import fr.ul.miage.arbre.Retour;
 import fr.ul.miage.arbre.Si;
 import fr.ul.miage.arbre.Superieur;
 import fr.ul.miage.arbre.TantQue;
@@ -446,7 +447,7 @@ public class Exemple {
 				
 				Const n7_17 = new Const(3);
 				
-				n7_16.setLeFils(n7_17);
+				n7_16.setFils(n7_17);
 				
 				n7_15.ajouterUnFils(n7_16);
 				
@@ -500,7 +501,119 @@ public class Exemple {
 				}
 				break;
 			case 8 : //Exemple 8
+				//Création de l'arbre
+				a = new Prog();
 				
+				Fonction n8_1 = new Fonction("f");
+				
+				Affectation n8_2 = new Affectation();
+				
+				Idf n8_3 = new Idf("x");
+				
+				n8_2.setFilsGauche(n8_3);
+				
+				Plus n8_4 = new Plus();
+				
+				Idf n8_5 = new Idf("i");
+				
+				n8_4.setFilsGauche(n8_5);
+				
+				Idf n8_6 = new Idf("j");
+				
+				n8_4.setFilsDroit(n8_6);
+				
+				n8_2.setFilsDroit(n8_4);
+				
+				n8_1.ajouterUnFils(n8_2);
+				
+				Retour n8_7 = new Retour("f");
+				
+				Plus n8_8 = new Plus();
+				
+				Idf n8_9 = new Idf("x");
+				
+				n8_8.setFilsGauche(n8_9);
+				
+				Const n8_10 = new Const(10);
+				
+				n8_8.setFilsDroit(n8_10);
+				
+				n8_7.setLeFils(n8_8);
+				
+				n8_1.ajouterUnFils(n8_7);
+				
+				a.ajouterUnFils(n8_1);
+				
+				Fonction n8_11 = new Fonction("main");
+				
+				Affectation n8_12 = new Affectation();
+			
+				Idf n8_13 = new Idf("a");
+				
+				n8_12.setFilsGauche(n8_13);
+				
+				Appel n8_14 = new Appel("f");
+			
+				Const n8_15 = new Const(1);
+				
+				n8_14.setFils(n8_15);
+				
+				Const n8_16 = new Const(2);
+				
+				n8_14.setFils(n8_16);
+				
+				n8_12.setFilsDroit(n8_14);
+				
+				n8_11.ajouterUnFils(n8_12);
+				
+				Ecrire n8_17 = new Ecrire();
+				
+				Idf n8_18 = new Idf("a");
+				
+				n8_17.setLeFils(n8_18);
+				
+				n8_11.ajouterUnFils(n8_17);
+				
+				a.ajouterUnFils(n8_11);
+				
+				//Création du tds
+				t = new Tds();
+				try {
+					Symbole s = t.ajouter("main", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_VOID);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("a", Symbole.CAT_GLOBAL, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
+					s.set_valeur(10);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("f", Symbole.CAT_FONCTION, Symbole.SCOPE_GLOBAL, Symbole.TYPE_ENTIER);
+					s.set_nbparam(2);
+					s.set_nbloc(1);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("x", Symbole.CAT_LOCAL, "f", Symbole.TYPE_ENTIER);
+					s.set_rang(0);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("i", Symbole.CAT_PARAMETRE, "f", Symbole.TYPE_ENTIER);
+					s.set_rang(0);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
+				try {
+					Symbole s = t.ajouter("j", Symbole.CAT_PARAMETRE, "f", Symbole.TYPE_ENTIER);
+					s.set_rang(1);
+				} catch (Exception e) {
+					LOG.warning(e.getMessage());
+				}
 				break;
 		}
 	}
