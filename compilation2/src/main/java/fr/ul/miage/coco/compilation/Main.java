@@ -78,7 +78,7 @@ public class Main {
 		res += newLigne + "MOVE(BP, SP)" + 
 			   newLigne + "POP(BP)" + 
 			   newLigne + "POP(LP)" + 
-			   newLigne + "DEALLOCATE(" + t.rechercher((String)n.getValeur(), "global").get_nbloc() +
+			   newLigne + "DEALLOCATE(" + t.rechercher((String)n.getValeur(), "global").get_nbloc() + ")" +
 			   newLigne + "RTN()";
 		return res;
 	}
@@ -227,14 +227,16 @@ public class Main {
 		res += generer_expression(a.getFils().get(1), t);
 		Symbole s = t.rechercher(a.getFils().get(0).getLabel(), "global");
 		if (s == null) {
+			Symbole s1 = t.rechercher(a.getFils().get(0).getLabel(), a.getFils().get(0).getScope());
+			res += newLigne + "POP(R0)" +
+				   newLigne + "PUTFRAME(R0," + adresse_locale(s1.get_rang()) + ")";
+			
+		}
+		else {
 			res += newLigne + "POP(R0)" + 
 				   newLigne + "ST(R0, " + 
 				   a.getFils().get(0).getLabel() + 
-				   					")";
-		}
-		else {
-			res += newLigne + "POP(R0)" +
-				   newLigne + "PUTFRAME(R0," + adresse_locale(s.get_rang()) + ")";
+					   					")";
 		}
 		return res;
 	}
