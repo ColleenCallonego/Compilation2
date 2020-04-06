@@ -418,7 +418,7 @@ public class Main {
 		String res = "";
 		res += generer_expression(a.getFils().get(0), t) + newLigne;
 		res += "POP(R0)" + newLigne + 
-			   "PUTFRAME(R0, " + adresse_parametre(nb_param(t, a.getLabel())) + ")" + newLigne;
+			   "PUTFRAME(R0, " + adresse_parametre(nb_param(t, a.getLabel())) + ")";
 		return res;
 	}
 	
