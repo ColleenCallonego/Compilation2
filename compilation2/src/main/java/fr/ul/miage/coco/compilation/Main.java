@@ -66,6 +66,10 @@ public class Main {
 		res += n.getLabel() + " : PUSH(LP)" + 
 				   newLigne + "PUSH(BP)" + 
 				   newLigne + "MOVE(SP, BP)";
+		int nb_locales = nb_locales(t, (String)n.getValeur());
+		if (nb_locales != 0) {
+			res += newLigne + generer_locales(t, (String)n.getValeur(), nb_locales);
+		}
 		if (n.getFils() != null) {
 			for(Noeud f : n.getFils()) {
 				res += newLigne + generer_bloc(f, t);
@@ -74,9 +78,56 @@ public class Main {
 		res += newLigne + "MOVE(BP, SP)" + 
 			   newLigne + "POP(BP)" + 
 			   newLigne + "POP(LP)" + 
+			   newLigne + "DEALLOCATE(" + t.rechercher((String)n.getValeur(), "global").get_nbloc() +
 			   newLigne + "RTN()";
 		return res;
 	}
+	
+	public static int nb_locales(Tds t, String nom_fonct) {
+		int nb = 0;
+		Set<String> set = t.table.keySet();
+		for(String s : set) {
+			List<Symbole> listSym = t.table.get(s);
+			for (Symbole sym : listSym) {
+				if (sym.getCat().equals("local") && sym.getScope().equals(nom_fonct)){
+					nb ++;
+				}
+			}
+		}
+		return nb;
+	}
+	
+	public static String generer_locales(Tds t, String nom_fonct, int nb_locales) {
+		String res ="";
+		res += "ALLOCATE(" + nb_locales + ")";
+		Set<String> set = t.table.keySet();
+		for(String s : set) {
+			int init = 0;
+			List<Symbole> listSym = t.table.get(s);
+			for (Symbole sym : listSym) {
+				if (sym.getCat().equals("local") && sym.getScope().equals(nom_fonct)){
+					if (sym.get_valeur() != 0) {
+						init = sym.get_valeur();
+					}
+					res += newLigne + "CMOVE(" + init + ", R0)";
+					res += newLigne + "PUSH(R0)";
+					res += newLigne + "POP(R0)";
+					res += newLigne + "PUTFRAME(R0," + adresse_locale(sym.get_rang()) + ")";
+				}
+			}
+		}
+		return res;
+	}
+	
+	public static int adresse_locale(int rang) {
+		return rang * 4;
+	}
+	
+	public static int adresse_parametre(int rang) {
+		return -(rang+3) * 4;
+	}
+	
+	
 	public static String generer_expression(Noeud a, Tds t) {
 		String res;
 		res = "";
@@ -88,8 +139,21 @@ public class Main {
 			break;
 		/*La racine de l'arbre en paramètre est un identifiant*/
 		case IDF:
-			res += "LD("+a.getValeur()+", R0)" + newLigne + 
-				   "PUSH(R0)";
+			if (a.getScope().equals("global")) {
+				res += "LD("+a.getValeur()+", R0)" + newLigne + 
+					   "PUSH(R0)";
+			}
+			else {
+				Symbole s = t.rechercher(a.getLabel(), a.getScope());
+				if (s.getCat().equals("param")){
+					res += "GETFRAME(" + adresse_parametre(s.get_rang()) + ", R0)" + newLigne + 
+							   "PUSH(R0)";
+				}
+				else {
+					res += "GETFRAME(" + adresse_locale(s.get_rang()) + ", R0)" + newLigne + 
+							   "PUSH(R0)";
+				}
+			}
 			break;
 		/*La racine de l'arbre en paramètre est une opération : ADDITION*/
 		case PLUS:
@@ -143,13 +207,20 @@ public class Main {
 		String res;
 		res = "";
 		res += generer_expression(a.getFils().get(1), t);
-		res += newLigne + "POP(R0)" + 
-			   newLigne + "ST(R0, " + 
-			   a.getFils().get(0).getLabel() + 
-			   					")";
+		Symbole s = t.rechercher(a.getFils().get(0).getLabel(), "global");
+		if (s == null) {
+			res += newLigne + "POP(R0)" + 
+				   newLigne + "ST(R0, " + 
+				   a.getFils().get(0).getLabel() + 
+				   					")";
+		}
+		else {
+			res += newLigne + "POP(R0)" +
+				   newLigne + "PUTFRAME(R0," + adresse_locale(s.get_rang()) + ")";
+		}
 		return res;
 	}
-
+	
 	public static String generer_instruction(Noeud a, Tds t) {
 		String res = "";
 		switch(a.getCat()){

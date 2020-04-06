@@ -97,7 +97,7 @@ public class Exemple {
 				
 				Affectation n3_2 = new Affectation();
 				
-				Idf n3_3 = new Idf("k", "main");
+				Idf n3_3 = new Idf("k", "global");
 				
 				n3_2.ajouterUnFils(n3_3);
 				
@@ -109,13 +109,13 @@ public class Exemple {
 				
 				Affectation n3_5 = new Affectation();
 				
-				Idf n3_6 = new Idf("l", "main");
+				Idf n3_6 = new Idf("l", "global");
 				
 				n3_5.ajouterUnFils(n3_6);
 				
 				Plus n3_7 = new Plus();
 				
-				Idf n3_8 = new Idf("i", "main");
+				Idf n3_8 = new Idf("i", "global");
 				
 				n3_7.ajouterUnFils(n3_8);
 				
@@ -125,7 +125,7 @@ public class Exemple {
 				
 				n3_9.ajouterUnFils(n3_10);
 				
-				Idf n3_11 = new Idf("j", "main");
+				Idf n3_11 = new Idf("j", "global");
 				
 				n3_9.ajouterUnFils(n3_11);
 				
@@ -175,7 +175,7 @@ public class Exemple {
 				
 				Affectation n4_2 = new Affectation();
 				
-				Idf n4_3 = new Idf("i", "main");
+				Idf n4_3 = new Idf("i", "global");
 				
 				n4_2.ajouterUnFils(n4_3);
 				
@@ -189,11 +189,11 @@ public class Exemple {
 				
 				Plus n4_6 = new Plus();
 				
-				Idf n4_7 = new Idf("i", "main");
+				Idf n4_7 = new Idf("i", "global");
 				
 				n4_6.ajouterUnFils(n4_7);
 				
-				Idf n4_8 = new Idf("j", "main");
+				Idf n4_8 = new Idf("j", "global");
 				
 				n4_6.ajouterUnFils(n4_8);
 				
@@ -230,7 +230,7 @@ public class Exemple {
 				
 				Affectation n5_2 = new Affectation();
 				
-				Idf n5_3 = new Idf("i", "main");
+				Idf n5_3 = new Idf("i", "global");
 				
 				n5_2.ajouterUnFils(n5_3);
 				
@@ -244,7 +244,7 @@ public class Exemple {
 				
 				Superieur n5_6 = new Superieur();
 				
-				Idf n5_7 = new Idf("i", "main");
+				Idf n5_7 = new Idf("i", "global");
 
 				n5_6.ajouterUnFils(n5_7);
 				
@@ -303,7 +303,7 @@ public class Exemple {
 				
 				Affectation n6_2 = new Affectation();
 				
-				Idf n6_3 = new Idf("i", "main");
+				Idf n6_3 = new Idf("i", "global");
 				
 				n6_2.setFilsGauche(n6_3);
 				
@@ -317,11 +317,11 @@ public class Exemple {
 				
 				Inferieur n6_6 = new Inferieur();
 				
-				Idf n6_7 = new Idf("i", "main");
+				Idf n6_7 = new Idf("i", "global");
 				
 				n6_6.setFilsGauche(n6_7);
 				
-				Idf n6_8 = new Idf("n", "main");
+				Idf n6_8 = new Idf("n", "global");
 				
 				n6_6.setFilsDroit(n6_8);
 				
@@ -331,7 +331,7 @@ public class Exemple {
 				
 				Ecrire n6_10 = new Ecrire();
 				
-				Idf n6_11 = new Idf("i", "main");
+				Idf n6_11 = new Idf("i", "global");
 				
 				n6_10.setLeFils(n6_11);
 				
@@ -339,13 +339,13 @@ public class Exemple {
 				
 				Affectation n6_12 = new Affectation();
 				
-				Idf n6_13 = new Idf("i", "main");
+				Idf n6_13 = new Idf("i", "global");
 				
 				n6_12.setFilsGauche(n6_13);
 				
 				Plus n6_14 = new Plus();
 				
-				Idf n6_15 = new Idf("i", "main");
+				Idf n6_15 = new Idf("i", "global");
 				
 				n6_14.setFilsGauche(n6_15);
 				
@@ -413,7 +413,7 @@ public class Exemple {
 				
 				Affectation n7_8 = new Affectation();
 				
-				Idf n7_9 = new Idf("a", "main");
+				Idf n7_9 = new Idf("a", "global");
 				
 				n7_8.setFilsGauche(n7_9);
 				
@@ -453,7 +453,7 @@ public class Exemple {
 				
 				Ecrire n7_18 = new Ecrire();
 				
-				Idf n7_19 = new Idf("a", "main");
+				Idf n7_19 = new Idf("a", "global");
 				
 				n7_18.setLeFils(n7_19);
 				
@@ -548,7 +548,7 @@ public class Exemple {
 				
 				Affectation n8_12 = new Affectation();
 			
-				Idf n8_13 = new Idf("a", "main");
+				Idf n8_13 = new Idf("a", "global");
 				
 				n8_12.setFilsGauche(n8_13);
 				
