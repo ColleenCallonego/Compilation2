@@ -312,4 +312,26 @@ public class Main {
 			}
 		return res;
 	}
+	
+	public static String generer_appel(Appel a, Tds t) {
+		String res = "";
+		if (!a.getFils().isEmpty()) {
+			for(int i = a.getFils().size()-1; i >= 0; i--) {
+				
+			}
+		}
+		
+		
+		
+		
+		res += generer_expression(a, t);
+		return res;
+	}
+	
+	public static String generer_retour(Noeud a, Tds t) {
+		String res = "";
+		res += generer_expression(a, t);
+		return res;
+	}
+	
 }
