@@ -407,8 +407,8 @@ public class Main {
 					   "PUSH(R0)" + newLigne;
 			}
 		}
-		res += "CALL(" + a.getLabel() + ")" + newLigne
-				+ "DEALLOCATE(" + nb_param(t, a.getLabel()) + ")";
+		res += "CALL(" + a.getLabel() + ")" + newLigne + 
+			   "DEALLOCATE(" + nb_param(t, a.getLabel()) + ")" + newLigne;
 		res += "POP(R0)" + newLigne + 
 			   "PUSH(R0)";
 		return res;
