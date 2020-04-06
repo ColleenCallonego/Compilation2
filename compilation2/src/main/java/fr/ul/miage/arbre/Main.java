@@ -51,12 +51,12 @@ public class Main {
 			Fonction max3 = new Fonction("max");
 			Fonction main3 = new Fonction("main");
 			Affectation aff3 = new Affectation();
-			Idf x3 = new Idf("x");
+			Idf x3 = new Idf("x", "max");
 			Const c3 = new Const(10);
 			aff3.setFilsGauche(x3);
 			aff3.setFilsDroit(c3);
 			Retour r3 = new Retour("max");
-			Idf y3 = new Idf("x");
+			Idf y3 = new Idf("x", "max");
 			r3.setLeFils(y3);
 			Bloc b3 = new Bloc();
 			b3.ajouterUnFils(aff3);
