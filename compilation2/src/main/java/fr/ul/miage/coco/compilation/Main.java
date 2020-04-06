@@ -315,22 +315,27 @@ public class Main {
 	
 	public static String generer_appel(Appel a, Tds t) {
 		String res = "";
+		if(t.rechercher((String)a.getValeur(), "globale").getType().equals("int")) {
+			res += "ALLOCATE(1)";
+		}
 		if (!a.getFils().isEmpty()) {
 			for(int i = a.getFils().size()-1; i >= 0; i--) {
-				
+				res += generer_expression(a.getFils().get(i), t);
+				res += "POP(R0)" + newLigne + 
+					   "PUSH(R0)";
 			}
 		}
-		
-		
-		
-		
-		res += generer_expression(a, t);
+		res += "CALL(" + a.getLabel() + ")";
+		res += "POP(R0)" + newLigne + 
+			   "PUSH(R0)";
 		return res;
 	}
 	
 	public static String generer_retour(Noeud a, Tds t) {
 		String res = "";
 		res += generer_expression(a, t);
+		res += "POP(R0)" + newLigne + 
+				   "";
 		return res;
 	}
 	
