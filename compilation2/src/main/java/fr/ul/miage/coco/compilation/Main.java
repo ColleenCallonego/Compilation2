@@ -97,6 +97,20 @@ public class Main {
 		return nb;
 	}
 	
+	public static int nb_param(Tds t, String nom_fonct) {
+		int nb = 0;
+		Set<String> set = t.table.keySet();
+		for(String s : set) {
+			List<Symbole> listSym = t.table.get(s);
+			for (Symbole sym : listSym) {
+				if (sym.getCat().equals("param") && sym.getScope().equals(nom_fonct)){
+					nb ++;
+				}
+			}
+		}
+		return nb;
+	}
+	
 	public static String generer_locales(Tds t, String nom_fonct, int nb_locales) {
 		String res ="";
 		res += "ALLOCATE(" + nb_locales + ")";
@@ -391,22 +405,22 @@ public class Main {
 		}
 		if (!a.getFils().isEmpty()) {
 			for(int i = a.getFils().size()-1; i >= 0; i--) {
-				res += generer_expression(a.getFils().get(i), t);
+				res += generer_expression(a.getFils().get(i), t) + newLigne;
 				res += "POP(R0)" + newLigne + 
-					   "PUSH(R0)";
+					   "PUSH(R0)" + newLigne;
 			}
 		}
 		res += "CALL(" + a.getLabel() + ")";
 		res += "POP(R0)" + newLigne + 
-			   "PUSH(R0)";
+			   "PUSH(R0)" + newLigne;
 		return res;
 	}
 	
 	public static String generer_retour(Noeud a, Tds t) {
 		String res = "";
-		res += generer_expression(a, t);
+		res += generer_expression(a.getFils().get(0), t) + newLigne;
 		res += "POP(R0)" + newLigne + 
-				   "";
+			   "PUTFRAME(R0, " + adresse_parametre(nb_param(t, a.getLabel())) + ")" + newLigne;
 		return res;
 	}
 	
