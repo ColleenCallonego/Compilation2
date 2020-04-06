@@ -14,7 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
-		Exemple e = new Exemple(7);
+		Exemple e = new Exemple(8);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
@@ -68,7 +68,7 @@ public class Main {
 				   newLigne + "MOVE(SP, BP)";
 		int nb_locales = t.rechercher(n.getLabel(), "global").get_nbloc();
 		if (nb_locales != 0) {
-			res += newLigne + generer_locales(t, (String)n.getValeur(), nb_locales);
+			res += newLigne + "ALLOCATE(" + nb_locales + ")";
 		}
 		if (n.getFils() != null) {
 			for(Noeud f : n.getFils()) {
@@ -117,28 +117,6 @@ public class Main {
 			}
 		}
 		return nb;
-	}
-	
-	public static String generer_locales(Tds t, String nom_fonct, int nb_locales) {
-		String res ="";
-		res += "ALLOCATE(" + nb_locales + ")";
-		Set<String> set = t.table.keySet();
-		for(String s : set) {
-			int init = 0;
-			List<Symbole> listSym = t.table.get(s);
-			for (Symbole sym : listSym) {
-				if (sym.getCat().equals("local") && sym.getScope().equals(nom_fonct)){
-					if (sym.get_valeur() != 0) {
-						init = sym.get_valeur();
-					}
-					res += newLigne + "CMOVE(" + init + ", R0)";
-					res += newLigne + "PUSH(R0)";
-					res += newLigne + "POP(R0)";
-					res += newLigne + "PUTFRAME(R0," + adresse_locale(sym.get_rang()) + ")";
-				}
-			}
-		}
-		return res;
 	}
 	
 	public static int adresse_locale(int rang) {
@@ -421,7 +399,7 @@ public class Main {
 	public static String generer_appel(Appel a, Tds t) {
 		String res = "";
 		if(t.rechercher((String)a.getValeur(), "globale").getType().equals("int")) {
-			res += "ALLOCATE(1)";
+			res += "ALLOCATE(1)" + newLigne;
 		}
 		if (!a.getFils().isEmpty()) {
 			for(int i = a.getFils().size()-1; i >= 0; i--) {
@@ -430,9 +408,9 @@ public class Main {
 					   "PUSH(R0)" + newLigne;
 			}
 		}
-		res += "CALL(" + a.getLabel() + ")";
+		res += "CALL(" + a.getLabel() + ")" + newLigne;
 		res += "POP(R0)" + newLigne + 
-			   "PUSH(R0)" + newLigne;
+			   "PUSH(R0)";
 		return res;
 	}
 	
