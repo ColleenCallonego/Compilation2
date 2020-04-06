@@ -85,7 +85,6 @@ public class Main {
 			res += newLigne + "MOVE(BP, SP)" + 
 				   newLigne + "POP(BP)" + 
 				   newLigne + "POP(LP)" + 
-				   newLigne + "DEALLOCATE(" + t.rechercher((String)n.getValeur(), "global").get_nbloc() + ")" +
 				   newLigne + "RTN()";
 		}
 		return res;
@@ -408,7 +407,8 @@ public class Main {
 					   "PUSH(R0)" + newLigne;
 			}
 		}
-		res += "CALL(" + a.getLabel() + ")" + newLigne;
+		res += "CALL(" + a.getLabel() + ")" + newLigne
+				+ "DEALLOCATE(" + nb_param(t, a.getLabel()) + ")";
 		res += "POP(R0)" + newLigne + 
 			   "PUSH(R0)";
 		return res;
