@@ -66,7 +66,7 @@ public class Main {
 		res += n.getLabel() + " : PUSH(LP)" + 
 				   newLigne + "PUSH(BP)" + 
 				   newLigne + "MOVE(SP, BP)";
-		int nb_locales = nb_locales(t, (String)n.getValeur());
+		int nb_locales = t.rechercher(n.getLabel(), "global").get_nbloc();
 		if (nb_locales != 0) {
 			res += newLigne + generer_locales(t, (String)n.getValeur(), nb_locales);
 		}
@@ -75,11 +75,19 @@ public class Main {
 				res += newLigne + generer_bloc(f, t);
 			}
 		}
-		res += newLigne + "MOVE(BP, SP)" + 
-			   newLigne + "POP(BP)" + 
-			   newLigne + "POP(LP)" + 
-			   newLigne + "DEALLOCATE(" + t.rechercher((String)n.getValeur(), "global").get_nbloc() + ")" +
-			   newLigne + "RTN()";
+		if (n.getLabel().equals("main")){
+			res += newLigne + "MOVE(BP, SP)" + 
+				   newLigne + "POP(BP)" + 
+				   newLigne + "POP(LP)" + 
+				   newLigne + "RTN()";
+		}
+		else {
+			res += newLigne + "MOVE(BP, SP)" + 
+				   newLigne + "POP(BP)" + 
+				   newLigne + "POP(LP)" + 
+				   newLigne + "DEALLOCATE(" + t.rechercher((String)n.getValeur(), "global").get_nbloc() + ")" +
+				   newLigne + "RTN()";
+		}
 		return res;
 	}
 	
