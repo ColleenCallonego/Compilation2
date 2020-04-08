@@ -14,6 +14,7 @@ public class Main {
 	public static String newLigne = System.getProperty("line.separator");
 	
 	public static void main(String[] args) {
+		//Création de l'arbre et du tds de l'exemple à tester : soit 1, 2, 3, 4, 5, 6, 7 ou 8
 		Exemple e = new Exemple(8);
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
@@ -35,6 +36,7 @@ public class Main {
 		return res;
 	}
 	
+
 	public static String generer_data(Tds t) {
 		String res = "";
 		Set<String> set = t.table.keySet();
@@ -53,6 +55,12 @@ public class Main {
 		return res; 
 	}
 	
+	/**
+	 * 
+	 * @param a
+	 * @param t
+	 * @return
+	 */
 	public static String generer_code(Noeud a, Tds t) {
 		String res = "";
 		for(Noeud  f : a.getFils() ){
@@ -60,6 +68,7 @@ public class Main {
 		}
 		return res;
 	}
+
 
 	public static String generer_fonction(Noeud n, Tds t){
 		String res ="";
@@ -90,6 +99,7 @@ public class Main {
 		return res;
 	}
 	
+
 	public static int nb_locales(Tds t, String nom_fonct) {
 		int nb = 0;
 		Set<String> set = t.table.keySet();
