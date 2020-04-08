@@ -95,18 +95,10 @@ public class Main {
 				res += newLigne + generer_bloc(f, t);
 			}
 		}
-		if (a.getLabel().equals("main")){
 			res += newLigne + "MOVE(BP, SP)" + 
 				   newLigne + "POP(BP)" + 
 				   newLigne + "POP(LP)" + 
 				   newLigne + "RTN()";
-		}
-		else {
-			res += newLigne + "MOVE(BP, SP)" + 
-				   newLigne + "POP(BP)" + 
-				   newLigne + "POP(LP)" + 
-				   newLigne + "RTN()";
-		}
 		return res;
 	}
 	/**
