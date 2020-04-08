@@ -1,5 +1,6 @@
 package fr.ul.miage.coco.compilation;
 
+import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -34,7 +35,7 @@ public class Exemple {
 	public Tds t;
 	public File f;
 	
-	public Exemple (int numero) {
+	public Exemple (int numero) throws FileNotFoundException {
 		switch(numero){
 			case 1 : //Exemple 1
 				f = new File("exemple1.asm");

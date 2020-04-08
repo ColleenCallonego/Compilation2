@@ -1,4 +1,7 @@
 package fr.ul.miage.coco.compilation;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -14,11 +17,17 @@ public class Main {
 	private static final Logger LOG = Logger.getLogger(Tds.class.getName());
 	public static String newLigne = System.getProperty("line.separator");
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		//Création de l'arbre et du tds de l'exemple à tester : soit 1, 2, 3, 4, 5, 6, 7 ou 8
-		Exemple e = new Exemple(8);
+		Exemple e = new Exemple(1);
 		//appel pour génération
-		System.out.print(generer_programme(e.a, e.t));
+		e.f.createNewFile();
+		FileWriter w = new FileWriter(e.f);
+		String code = new String();
+		code = generer_programme(e.a, e.t);
+		w.write(code);
+		w.close();
+		System.out.println(code);
 	}
 	/**
 	 * Génère le code assembleur d'un noeud PROG
