@@ -1,5 +1,6 @@
 package fr.ul.miage.coco.compilation;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -31,10 +32,12 @@ public class Exemple {
 	private static final Logger LOG = Logger.getLogger(Tds.class.getName());
 	public Prog a;
 	public Tds t;
+	public File f;
 	
 	public Exemple (int numero) {
 		switch(numero){
 			case 1 : //Exemple 1
+				f = new File("exemple1.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -52,6 +55,7 @@ public class Exemple {
 				}
 				break;
 			case 2 : //Exemple 2
+				f = new File("exemple2.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -90,6 +94,7 @@ public class Exemple {
 				}
 				break;
 			case 3 : //Exemple 3
+				f = new File("exemple3.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -168,6 +173,7 @@ public class Exemple {
 				}
 				break;
 			case 4 : //Exemple 4
+				f = new File("exemple4.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -223,6 +229,7 @@ public class Exemple {
 				}
 				break;
 			case 5 : //Exemple 5
+				f = new File("exemple5.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -296,6 +303,7 @@ public class Exemple {
 				}
 				break;
 			case 6 : //Exemple 6
+				f = new File("exemple6.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -382,6 +390,7 @@ public class Exemple {
 				}
 				break;
 			case 7 : //Exemple 7
+				f = new File("exemple7.asm");
 				//Création de l'arbre
 				a = new Prog();
 				
@@ -501,6 +510,7 @@ public class Exemple {
 				}
 				break;
 			case 8 : //Exemple 8
+				f = new File("exemple8.asm");
 				//Création de l'arbre
 				a = new Prog();
 				

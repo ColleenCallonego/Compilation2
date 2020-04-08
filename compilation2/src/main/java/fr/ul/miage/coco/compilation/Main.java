@@ -1,6 +1,4 @@
 package fr.ul.miage.coco.compilation;
-
-
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -8,7 +6,10 @@ import java.util.logging.Logger;
 import fr.ul.miage.arbre.*;
 import fr.ul.miage.arbre.Noeud.Categories;
 import fr.ul.miage.tds.*;
-
+/**
+ * Classe que correspond à l'API GENERATION
+ * @author Gabriel Couroux, Colleen Callonego, Chloé Soquet, Jérémy Picard
+ */
 public class Main {
 	private static final Logger LOG = Logger.getLogger(Tds.class.getName());
 	public static String newLigne = System.getProperty("line.separator");
@@ -19,7 +20,12 @@ public class Main {
 		//appel pour génération
 		System.out.print(generer_programme(e.a, e.t));
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud PROG
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_programme(Prog a, Tds t) {
 		String res = "";
 		res += ".include beta.uasm" + newLigne + 
@@ -35,8 +41,12 @@ public class Main {
 						  "pile :";
 		return res;
 	}
-	
 
+	/**
+	 * Génère le code assembleur des datas d'un programme
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_data(Tds t) {
 		String res = "";
 		Set<String> set = t.table.keySet();
@@ -54,12 +64,12 @@ public class Main {
 		}
 		return res; 
 	}
-	
+
 	/**
-	 * 
-	 * @param a
-	 * @param t
-	 * @return
+	 * Génère le code assembleur des codes d'un programme
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
 	 */
 	public static String generer_code(Noeud a, Tds t) {
 		String res = "";
@@ -69,37 +79,39 @@ public class Main {
 		return res;
 	}
 
-
-	public static String generer_fonction(Noeud n, Tds t){
+	/**
+	 * Génère le code assembleur d'un noeud FONCT
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
+	public static String generer_fonction(Noeud a, Tds t){
 		String res ="";
-		res += n.getLabel() + " : PUSH(LP)" + 
+		res += a.getLabel() + " : PUSH(LP)" + 
 				   newLigne + "PUSH(BP)" + 
 				   newLigne + "MOVE(SP, BP)";
-		int nb_locales = t.rechercher(n.getLabel(), "global").get_nbloc();
+		int nb_locales = t.rechercher(a.getLabel(), "global").get_nbloc();
 		if (nb_locales != 0) {
 			res += newLigne + "ALLOCATE(" + nb_locales + ")";
 		}
-		if (n.getFils() != null) {
-			for(Noeud f : n.getFils()) {
+		if (a.getFils() != null) {
+			for(Noeud f : a.getFils()) {
 				res += newLigne + generer_bloc(f, t);
 			}
 		}
-		if (n.getLabel().equals("main")){
 			res += newLigne + "MOVE(BP, SP)" + 
 				   newLigne + "POP(BP)" + 
 				   newLigne + "POP(LP)" + 
 				   newLigne + "RTN()";
-		}
-		else {
-			res += newLigne + "MOVE(BP, SP)" + 
-				   newLigne + "POP(BP)" + 
-				   newLigne + "POP(LP)" + 
-				   newLigne + "RTN()";
-		}
 		return res;
 	}
-	
 
+	/**
+	 * Calcule le nombre de variable locales pour une fonction donnée du programme
+	 * @param t Le tableau de données
+	 * @param nom_fonct nom de la fonction
+	 * @return nombre de variables locales de la fonction
+	 */
 	public static int nb_locales(Tds t, String nom_fonct) {
 		int nb = 0;
 		Set<String> set = t.table.keySet();
@@ -113,7 +125,12 @@ public class Main {
 		}
 		return nb;
 	}
-	
+	/**
+	 * Calcule le nombre de paramètre pour une fonction donnée du programme
+	 * @param t Le tableau de données
+	 * @param nom_fonct nom de la fonction
+	 * @return nombre de paramètres de la fonction
+	 */
 	public static int nb_param(Tds t, String nom_fonct) {
 		int nb = 0;
 		Set<String> set = t.table.keySet();
@@ -127,16 +144,28 @@ public class Main {
 		}
 		return nb;
 	}
-	
+	/**
+	 * Renvoie l'adresse dans la pile d'une variable locale
+	 * @param rang rang de la variable locale dans la pile
+	 * @return l'adresse de la variable locale
+	 */
 	public static int adresse_locale(int rang) {
 		return rang * 4;
 	}
-	
+	/**
+	 * Renvoie l'adresse dans la pile d'un paramètre
+	 * @param rang rang du paramètre dans la pile
+	 * @return l'adresse du paramètre
+	 */
 	public static int adresse_parametre(int rang) {
 		return -(rang+3) * 4;
 	}
-	
-	
+	/**
+	 * Génère le code assembleur des noeuds correspondant à des expressions : CONST, IDF, PLUS, MOINS, MUL, DIV, LIRE, APPEL
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_expression(Noeud a, Tds t) {
 		String res;
 		res = "";
@@ -215,7 +244,12 @@ public class Main {
 		}
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud AFF
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_affectation(Noeud a, Tds t) {
 		String res;
 		res = "";
@@ -225,7 +259,6 @@ public class Main {
 			Symbole s1 = t.rechercher(a.getFils().get(0).getLabel(), a.getFils().get(0).getScope());
 			res += newLigne + "POP(R0)" +
 				   newLigne + "PUTFRAME(R0," + adresse_locale(s1.get_rang()) + ")";
-			
 		}
 		else {
 			res += newLigne + "POP(R0)" + 
@@ -235,7 +268,12 @@ public class Main {
 		}
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur des noeuds correspondant à des instructions : AFF, ECR, LIRE SI, TQ, APPEL, RET
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_instruction(Noeud a, Tds t) {
 		String res = "";
 		switch(a.getCat()){
@@ -266,7 +304,12 @@ public class Main {
 		}
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud ECR
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_ecrire(Noeud a, Tds t) {
 		String res;
 		res = "";
@@ -275,7 +318,12 @@ public class Main {
 			   "WRINT()";
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud LIRE
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_lire(Noeud a, Tds t) {
 		String res;
 		res = "";
@@ -283,7 +331,12 @@ public class Main {
 			   "PUSH(R0)";
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud SI
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_si(Si a, Tds t) {
 		String res = "";
 		/*Bloc SI*/
@@ -311,7 +364,12 @@ public class Main {
 		res += "fsi" + a.getValeur() + " : ";
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud TANTQUE
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_tq(TantQue a, Tds t) {
 		String res = "";
 		res += "TQ" + a.getValeur() + " : ";
@@ -333,13 +391,23 @@ public class Main {
 			   "TQF" + a.getValeur() + " : ";
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud BLOC
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_bloc(Noeud a, Tds t) {
 		String res = "";
 		res += generer_instruction(a, t);
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur des noeuds correspondant à des expressions boolean: SUP, SUPE, INF, INFE, EG, DIF
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_expression_boolean(Noeud a, Tds t) {
 		String res = "";
 		switch(a.getCat()) {
@@ -404,7 +472,12 @@ public class Main {
 			}
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud APPEL
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_appel(Appel a, Tds t) {
 		String res = "";
 		if(t.rechercher((String)a.getValeur(), "globale").getType().equals("int")) {
@@ -423,7 +496,12 @@ public class Main {
 			   "PUSH(R0)";
 		return res;
 	}
-	
+	/**
+	 * Génère le code assembleur d'un noeud RETOUR
+	 * @param a L'arbre
+	 * @param t Le tableau de données
+	 * @return Le code assembleur
+	 */
 	public static String generer_retour(Retour a, Tds t) {
 		String res = "";
 		res += generer_expression(a.getFils().get(0), t) + newLigne;
@@ -431,5 +509,4 @@ public class Main {
 			   "PUTFRAME(R0, " + adresse_parametre(nb_param(t, a.getLabel())) + ")";
 		return res;
 	}
-	
 }
